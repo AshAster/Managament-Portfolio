@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@metamask/onboarding": "^1.0.1",
+    "mongodb": "^6.14.2"
+  }
+}

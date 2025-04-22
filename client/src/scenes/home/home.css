@@ -1,0 +1,151 @@
+.home {
+    color: white;
+    padding: 0px 10px;
+    padding-bottom: 100px;
+  }
+  
+  .hero {
+    max-width: 600px;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 54px);
+    font-weight: 700;
+    color: #fff;
+  }
+  
+  .hero p {
+    width: 75%;
+    color: #d4d4d4;
+    line-height: 1.5;
+  }
+  
+  .search-form {
+    padding: 8px;
+    width: 80%;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    gap: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .search-form input {
+    flex: 1;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    padding-left: 10px;
+  }
+  
+  .search-form button {
+    border: none;
+    background: #3ccf91;
+    color: white;
+    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+
+  .search-form button:hover {
+    background: #299164;
+}
+  
+  .crypto-table {
+    max-width: 800px;
+    margin: auto;
+    background: linear-gradient(rgba(48, 77, 72, 0.76), rgba(66, 120, 134, 0.7));
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .table-layout {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1.5fr;
+    padding: 15px 20px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    transition: background 0.3s ease-in-out;
+  }
+
+  .table-layout:hover {
+    background: rgba(255, 255, 255, 0.075);
+}
+  
+  .table-header {
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .coin-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .coin-info img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  
+  .positive {
+    color: green;
+  }
+  
+  .negative {
+    color: red;
+  }
+  
+  .market-cap {
+    text-align: right;
+  }
+  .table-layout {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+  }
+  
+  .table-layout:hover {
+    text-decoration: none; /* Ensure no underline on hover */
+    color: inherit; /* Ensure color doesn't change on hover */
+  }
+  
+  @media(max-width:768px){
+    .table-layout{
+      grid-template-columns:0.5fr 3fr 1fr 1fr;
+    }
+    .market-cap{
+      display: none;
+    }
+    
+  }
+
+  @media(max-width:500px){
+    .table-layout div img{
+      width: 25px;
+    }
+    .table-layout{
+      font-size: 12px;
+    }
+
+    .hero form input {
+      width: 75px;
+      height: 20px;
+    }
+    
+  }
+

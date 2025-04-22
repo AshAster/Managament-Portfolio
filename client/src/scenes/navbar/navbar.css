@@ -1,0 +1,85 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Right-Side {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Navigation links */
+.Right-Side a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.Right-Side a:hover {
+  color: #ffcc00;
+}
+
+/* Currency dropdown */
+.nav-currency {
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 2px solid white;
+  background: transparent;
+  color: rgb(255, 255, 255);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+}
+
+.bar {
+  width: 25px;
+  height: 2px;
+  background: white;
+  margin: 2.5px 0;
+  transition: 0.3s ease;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .Right-Side {
+    position: absolute;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    background: #1f2026;
+    flex-direction: column;
+    text-align: center;
+    transition: left 0.3s ease-in-out;
+    padding: 1rem 0;
+  }
+
+  .Right-Side.open {
+    left: 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Animation */
+  .hamburger.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
