@@ -9,7 +9,7 @@ import Home from "@/scenes/home"
 import Coin from "@/scenes/coin"
 import Footer from "@/scenes/footer"
 import Predictions from "@/scenes/predictions";
-import Wallet from "@/scenes/wallet";
+// import Wallet from "@/scenes/wallet";
 
 
 
@@ -28,8 +28,7 @@ function App() {
             <Route path="/coin/:coinId" element={<Coin />} /> 
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/predictions" element={<Predictions />} />
-            <Route path="/wallet" element={<Wallet />} />
-            
+            {/* <Route path="/wallet" element={<Wallet />} /> */}
             </Routes>
             <Footer />
           </Box>
