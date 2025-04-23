@@ -8,7 +8,7 @@ import {
 } from "@/state/api";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { Cell, Pie, PieChart } from "recharts";
 
 const Row3 = () => {
@@ -42,18 +42,18 @@ const Row3 = () => {
   const productColumns = [
     {
       field: "_id",
-      headerName: "id",
+      headerName: "ID",
       flex: 1,
     },
     {
       field: "expense",
-      headerName: "Expense",
+      headerName: "Investment",
       flex: 0.5,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: "Market Price",
       flex: 0.5,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
@@ -62,23 +62,23 @@ const Row3 = () => {
   const transactionColumns = [
     {
       field: "_id",
-      headerName: "id",
+      headerName: "Transaction ID",
       flex: 1,
     },
     {
       field: "buyer",
-      headerName: "Buyer",
+      headerName: "Investor",
       flex: 0.67,
     },
     {
       field: "amount",
-      headerName: "Amount",
+      headerName: "Investment Amount",
       flex: 0.35,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
     {
       field: "productIds",
-      headerName: "Count",
+      headerName: "Assets Traded",
       flex: 0.1,
       renderCell: (params: GridCellParams) =>
         (params.value as Array<string>).length,
@@ -89,8 +89,8 @@ const Row3 = () => {
     <>
       <DashboardBox gridArea="g">
         <BoxHeader
-          title="Crypto List"
-          sideText={`${productData?.length} products`}
+          title="Crypto Assets"
+          sideText={`${productData?.length} assets`}
         />
         <Box
           mt="0.5rem"
@@ -123,8 +123,8 @@ const Row3 = () => {
       </DashboardBox>
       <DashboardBox gridArea="h">
         <BoxHeader
-          title="Recent Changes"
-          sideText={`${transactionData?.length} latest transactions`}
+          title="Recent Transactions"
+          sideText={`${transactionData?.length} recent trades`}
         />
         <Box
           mt="1rem"
@@ -156,7 +156,7 @@ const Row3 = () => {
         </Box>
       </DashboardBox>
       <DashboardBox gridArea="i">
-        <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
+        <BoxHeader title="Portfolio Expense Distribution" sideText="+4%" />
         <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
@@ -181,8 +181,8 @@ const Row3 = () => {
       </DashboardBox>
       <DashboardBox gridArea="j">
         <BoxHeader
-          title="Overall Summary and Explanation Data"
-          sideText="+15%"
+          title="Portfolio Overview"
+          sideText="+15% growth"
         />
         <Box
           height="15px"
@@ -198,10 +198,7 @@ const Row3 = () => {
           ></Box>
         </Box>
         <Typography margin="0 1rem" variant="h6">
-          Orci aliquam enim vel diam. Venenatis euismod id donec mus lorem etiam
-          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas
-          molestie volutpat et. Malesuada quis pretium aliquet lacinia ornare
-          sed. In volutpat nullam at est id cum pulvinar nunc.
+          Our portfolio continues to see impressive growth as we optimize for higher returns across diversified assets. With strategic investments in high-potential cryptocurrencies, we are seeing significant value appreciation. Expect continued upward momentum with more updates on new investments and real-time adjustments.
         </Typography>
       </DashboardBox>
     </>

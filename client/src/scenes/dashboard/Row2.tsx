@@ -21,8 +21,8 @@ import {
 } from "recharts";
 
 const pieData = [
-  { name: "Group A", value: 600 },
-  { name: "Group B", value: 400 },
+  { name: "Active Campaigns", value: 600 },
+  { name: "Target Revenue", value: 400 },
 ];
 
 const Row2 = () => {
@@ -62,9 +62,9 @@ const Row2 = () => {
 
   return (
     <>
-      {/* Line Chart - Operational Expenses */}
+      {/* Line Chart - Operational vs Non-Operational Expenses */}
       <DashboardBox gridArea="d">
-        <BoxHeader title="Operational vs Non-Operational Expenses" sideText="+4%" />
+        <BoxHeader title="Crypto Asset vs. Non-Crypto Asset Investment" sideText="+4%" />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={operationalExpenses} margin={{ top: 20, right: 0, left: -10, bottom: 55 }}>
             <CartesianGrid vertical={false} stroke={palette.grey[800]} />
@@ -80,7 +80,7 @@ const Row2 = () => {
 
       {/* Pie Chart - Campaigns and Targets */}
       <DashboardBox gridArea="e">
-        <BoxHeader title="Campaigns and Targets" sideText="+4%" />
+        <BoxHeader title="Crypto Campaigns & Financial Targets" sideText="+4%" />
         <FlexBetween mt="0.25rem" gap="1.5rem" pr="1rem">
           <PieChart width={110} height={100} margin={{ top: 0, right: -10, left: 10, bottom: 0 }}>
             <Pie stroke="none" data={pieData} innerRadius={18} outerRadius={38} paddingAngle={2} dataKey="value">
@@ -94,28 +94,28 @@ const Row2 = () => {
             <Typography m="0.3rem 0" variant="h3" color={palette.primary[300]}>
               83
             </Typography>
-            <Typography variant="h6">Finance goals of the campaign that is desired</Typography>
+            <Typography variant="h6">Crypto Campaign Finance Goals & Financial Outcomes</Typography>
           </Box>
           <Box flexBasis="40%">
-            <Typography variant="h5">Decline in revenue </Typography>
-            <Typography variant="h6">Losses are down 25%</Typography>
+            <Typography variant="h5">Decline in Asset Revenue</Typography>
+            <Typography variant="h6">Crypto Losses Reduced by 25%</Typography>
             <Typography mt="0.4rem" variant="h5">Profit Margins</Typography>
-            <Typography variant="h6">Margins are up by 30% from last month.</Typography>
+            <Typography variant="h6">Crypto Margins Are Up by 30% Compared to Last Month</Typography>
           </Box>
         </FlexBetween>
       </DashboardBox>
 
       {/* Scatter Chart - Product Prices vs Expenses */}
       <DashboardBox gridArea="f">
-        <BoxHeader title="Crypto Prices vs Revenue" sideText="+4%" />
+        <BoxHeader title="Crypto Asset Prices vs Revenue" sideText="+4%" />
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 20, right: 25, bottom: 40, left: -10 }}>
             <CartesianGrid stroke={palette.grey[800]} />
-            <XAxis type="number" dataKey="price" name="Price" axisLine={false} tickLine={false} style={{ fontSize: "12px" }} tickFormatter={(v) => `$${v}`} />
+            <XAxis type="number" dataKey="price" name="Crypto Price" axisLine={false} tickLine={false} style={{ fontSize: "12px" }} tickFormatter={(v) => `$${v}`} />
             <YAxis type="number" dataKey="expense" name="Expense" axisLine={false} tickLine={false} style={{ fontSize: "12px" }} tickFormatter={(v) => `$${v}`} />
             <ZAxis type="number" range={[20]} />
             <Tooltip formatter={(v) => `$${v}`} />
-            <Scatter name="Crypto Expense Ratio" data={productExpenseData} fill={palette.tertiary[500]} />
+            <Scatter name="Crypto Asset Expense Ratio" data={productExpenseData} fill={palette.tertiary[500]} />
           </ScatterChart>
         </ResponsiveContainer>
       </DashboardBox>

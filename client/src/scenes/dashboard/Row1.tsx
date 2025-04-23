@@ -64,9 +64,9 @@ const Row1 = () => {
     <>
       <DashboardBox gridArea="a">
         <BoxHeader
-          title="Revenue and Expenses"
-          subtitle="top line represents revenue, bottom line represents expenses"
-          sideText="+4%"
+          title="Crypto Portfolio vs. Expenses"
+          subtitle="Portfolio value shown on top, expenses below — monitoring crypto efficiency"
+          sideText="+4% portfolio growth"
         />
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
@@ -137,11 +137,12 @@ const Row1 = () => {
           </AreaChart>
         </ResponsiveContainer>
       </DashboardBox>
+
       <DashboardBox gridArea="b">
         <BoxHeader
-          title="Profit and Revenue"
-          subtitle="top line represents revenue, bottom line represents expenses"
-          sideText="+4%"
+          title="Crypto Profit and Portfolio Value"
+          subtitle="Top line shows portfolio value, bottom line reflects expenses — indicating profit margins in crypto management"
+          sideText="+4% profit increase"
         />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -196,11 +197,12 @@ const Row1 = () => {
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
+
       <DashboardBox gridArea="c">
         <BoxHeader
-          title="Revenue Month by Month"
-          subtitle="graph representing the revenue month by month"
-          sideText="+4%"
+          title="Monthly Portfolio Trends"
+          subtitle="Graph illustrates portfolio growth on a month-by-month basis"
+          sideText="+4% monthly growth"
         />
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

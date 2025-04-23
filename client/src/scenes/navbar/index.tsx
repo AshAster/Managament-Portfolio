@@ -9,9 +9,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import WalletConnection from "@/scenes/wallet"
 import { ethers } from "ethers";
 
-type Props = {};
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const { setCurrency } = useContext(CoinContext);
   const currencyHandler = (event) => {
     switch (event.target.value) {

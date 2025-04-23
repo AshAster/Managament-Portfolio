@@ -1,41 +1,74 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState, ReactNode } from "react";
 
+type Currency = {
+  name: string;
+  symbol: string;
+};
 
-export const CoinContext = createContext();
+type Coin = {
+  id: string;
+  symbol: string;
+  name: string;
+  image: {
+    large: string;
+  };
+  market_cap_rank: number;
+  market_data: {
+    current_price: Record<string, number>;
+    market_cap: Record<string, number>;
+    high_24h: Record<string, number>;
+    low_24h: Record<string, number>;
+  };
+  // Add any other properties used in your app
+};
 
-const CoinContextProvider = (props)=>{
+type CoinContextType = {
+  allCoin: Coin[];
+  currency: Currency;
+  setCurrency: React.Dispatch<React.SetStateAction<Currency>>;
+};
 
-    const [allCoin, setAllCoin]= useState([]);
-    const [currency, setCurrency]= useState({
-        name: "usd",
-        symbol: "$"
-    });
+export const CoinContext = createContext<CoinContextType | undefined>(undefined);
 
-    const fetchAllCoin = async ()=>{
-        const options = {
-            method: 'GET',
-            headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-96M6wLXSRWMiu34VFkSHNgaA'}
-          };
-          
-          fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`, options)
-            .then(res => res.json())
-            .then(res => setAllCoin(res))
-            .catch(err => console.error(err));
+type Props = {
+  children: ReactNode;
+};
+
+const CoinContextProvider = ({ children }: Props) => {
+  const [allCoin, setAllCoin] = useState<Coin[]>([]);
+  const [currency, setCurrency] = useState<Currency>({
+    name: "usd",
+    symbol: "$",
+  });
+
+  const fetchAllCoin = async () => {
+    try {
+      const res = await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`,
+        {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            "x-cg-demo-api-key": "CG-96M6wLXSRWMiu34VFkSHNgaA",
+          },
+        }
+      );
+      const data = await res.json();
+      setAllCoin(data);
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-    useEffect(()=>{
-        fetchAllCoin();
-    },[currency])
+  useEffect(() => {
+    fetchAllCoin();
+  }, [currency]);
 
-    const contextValue ={
-        allCoin, currency, setCurrency
-    }
-
-    return (
-        <CoinContext.Provider value={contextValue}>
-            {props.children}
-        </CoinContext.Provider>
-    )
-}
+  return (
+    <CoinContext.Provider value={{ allCoin, currency, setCurrency }}>
+      {children}
+    </CoinContext.Provider>
+  );
+};
 
 export default CoinContextProvider;

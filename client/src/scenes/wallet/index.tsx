@@ -2,6 +2,20 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ethers } from 'ethers';
 
+// Types for MetaMask (window.ethereum)
+interface EthereumProvider {
+  isMetaMask?: boolean;
+  request: (args: { method: string }) => Promise<any>;
+  on: (eventName: string, callback: (...args: any[]) => void) => void;
+  removeListener: (eventName: string, callback: (...args: any[]) => void) => void;
+}
+
+declare global {
+  interface Window {
+    ethereum?: EthereumProvider;
+  }
+}
+
 // Styled components
 const SignInButton = styled.button`
   background: #3ccf91;
@@ -16,13 +30,13 @@ const SignInButton = styled.button`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   margin-top: 20px;
-  
+
   &:hover {
     background: #34b57d;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
-  
+
   &:active {
     transform: translateY(0);
   }
@@ -111,7 +125,7 @@ const CloseButton = styled.button`
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   &:hover {
     background: #3ccf91;
   }
@@ -160,11 +174,11 @@ type WalletConnectionProps = {
   onCloseModal: () => void;
 };
 
-const WalletConnection = ({ 
-  onConnect, 
-  onDisconnect, 
-  showModal, 
-  onCloseModal 
+const WalletConnection = ({
+  onConnect,
+  onDisconnect,
+  showModal,
+  onCloseModal
 }: WalletConnectionProps) => {
   const [isConnected, setIsConnected] = useState(false);
   const [userAddress, setUserAddress] = useState('');
@@ -172,13 +186,12 @@ const WalletConnection = ({
   const [statusMessage, setStatusMessage] = useState('');
   const [error, setError] = useState('');
 
-  // Reset error and status when modal opens
   useEffect(() => {
     if (showModal) {
       setError('');
       setStatusMessage('');
       setIsSigningIn(false);
-      checkWalletConnection(); // Optional: Re-check if wallet is now available
+      checkWalletConnection();
     }
   }, [showModal]);
 
@@ -198,7 +211,7 @@ const WalletConnection = ({
     };
   }, []);
 
-  const checkWalletConnection = async () => {
+  const checkWalletConnection = async (): Promise<void> => {
     if (window.ethereum) {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -212,7 +225,7 @@ const WalletConnection = ({
     }
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (): Promise<void> => {
     if (!window.ethereum) {
       setError('MetaMask is not installed. Please install it to continue.');
       return;
@@ -230,37 +243,41 @@ const WalletConnection = ({
         handleConnection(accounts[0], provider);
         setStatusMessage('Connection successful!');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error connecting to MetaMask:', err);
-      setError('User rejected the connection request.');
+      if (err.code === 4001) {
+        setError('User rejected the connection request.');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setIsSigningIn(false);
       setTimeout(onCloseModal, 1500);
     }
   };
 
-  const handleConnection = (address: string, provider: ethers.providers.Web3Provider) => {
+  const handleConnection = (address: string, provider: ethers.providers.Web3Provider): void => {
     setUserAddress(address);
     setIsConnected(true);
     onConnect(address, provider);
   };
 
-  const handleDisconnect = () => {
+  const handleDisconnect = (): void => {
     setIsConnected(false);
     setUserAddress('');
     onDisconnect();
   };
 
-  const handleAccountsChanged = (accounts: string[]) => {
+  const handleAccountsChanged = (accounts: string[]): void => {
     if (accounts.length === 0) {
       handleDisconnect();
     } else {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(window.ethereum!);
       handleConnection(accounts[0], provider);
     }
   };
 
-  const handleChainChanged = () => {
+  const handleChainChanged = (): void => {
     window.location.reload();
   };
 
@@ -271,20 +288,20 @@ const WalletConnection = ({
           <ModalContent>
             <CloseButton onClick={onCloseModal} />
             <ModalHeader>Sign In With MetaMask</ModalHeader>
-            
+
             <WalletOption>
               <WalletIcon src={META_MASK.icon} alt={META_MASK.name} />
               <WalletName>{META_MASK.name}</WalletName>
               <WalletDescription>{META_MASK.description}</WalletDescription>
-              
-              <SignInButton 
+
+              <SignInButton
                 onClick={handleSignIn}
                 disabled={isSigningIn}
               >
                 {isSigningIn ? 'Waiting for Signature...' : 'Sign In to Connect'}
               </SignInButton>
             </WalletOption>
-            
+
             {statusMessage && <StatusMessage>{statusMessage}</StatusMessage>}
             {error && <ErrorMessage>{error}</ErrorMessage>}
           </ModalContent>

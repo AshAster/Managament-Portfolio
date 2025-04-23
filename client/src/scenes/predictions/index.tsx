@@ -2,7 +2,7 @@ import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
 import { useGetKpisQuery } from "@/state/api";
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   CartesianGrid,
   Label,
@@ -35,9 +35,9 @@ const Predictions = () => {
     return monthData.map(({ month, revenue }, i: number) => {
       return {
         name: month,
-        "Actual Revenue": revenue,
+        "Actual Portfolio Value": revenue,  // Renamed from "Actual Revenue"
         "Regression Line": regressionLine.points[i][1],
-        "Predicted Revenue": regressionLine.predict(i + 12)[1],
+        "Predicted Portfolio Value": regressionLine.predict(i + 12)[1],  // Renamed from "Predicted Revenue"
       };
     });
   }, [kpiData]);
@@ -46,11 +46,10 @@ const Predictions = () => {
     <DashboardBox width="100%" height="100%" p="1rem" overflow="hidden">
       <FlexBetween m="1rem 2.5rem" gap="1rem">
         <Box>
-          <Typography variant="h3">Revenue and Predictions</Typography>
+          <Typography variant="h3">Crypto Portfolio & Predictions</Typography>  {/* Title updated */}
           <Typography variant="h6">
-            charted revenue and predicted revenue based on a simple linear
-            regression model
-          </Typography>
+            Charted portfolio value and predicted future portfolio value based on a simple linear regression model
+          </Typography>  {/* Subtitle updated */}
         </Box>
         <Button
           onClick={() => setIsPredictions(!isPredictions)}
@@ -60,7 +59,7 @@ const Predictions = () => {
             boxShadow: "0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,.4)",
           }}
         >
-          Show Predicted Revenue for Next Year
+          Show Predicted Portfolio Value for Next Year {/* Button text updated */}
         </Button>
       </FlexBetween>
       <ResponsiveContainer width="100%" height="100%">
@@ -84,7 +83,7 @@ const Predictions = () => {
             tickFormatter={(v) => `$${v}`}
           >
             <Label
-              value="Revenue in USD"
+              value="Portfolio Value in USD"  
               angle={-90}
               offset={-5}
               position="insideLeft"
@@ -94,7 +93,7 @@ const Predictions = () => {
           <Legend verticalAlign="top" />
           <Line
             type="monotone"
-            dataKey="Actual Revenue"
+            dataKey="Actual Portfolio Value" 
             stroke={palette.primary.main}
             strokeWidth={0}
             dot={{ strokeWidth: 5 }}
@@ -108,7 +107,7 @@ const Predictions = () => {
           {isPredictions && (
             <Line
               strokeDasharray="5 5"
-              dataKey="Predicted Revenue"
+              dataKey="Predicted Portfolio Value" 
               stroke={palette.secondary[500]}
             />
           )}
